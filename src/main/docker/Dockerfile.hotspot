@@ -1,0 +1,8 @@
+FROM fabric8/java-alpine-openjdk8-jre
+RUN mkdir /app
+COPY target/lib /app/lib
+WORKDIR /app/lib
+COPY target/*-runner.jar /app/application.jar
+EXPOSE 8080
+##RUN java -jar /app/application.jar
+CMD ["java", "-jar", "-Xdebug", "-Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=5005", "/app/application.jar"]
